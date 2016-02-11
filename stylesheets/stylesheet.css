@@ -184,7 +184,9 @@ sub {
 img {
   border: 0;
 }
-
+.logo {
+  text-align: center;
+}
 /**
  * Correct overflow not hidden in IE 9/10/11.
  */
