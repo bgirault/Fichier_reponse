@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <!-- Autounattend_x64_BIOS_sample.xml 
+
+This file automates the Windows installation. 
+
+     Before using this file:
+      * Replace ProductKey with a product key for the edition of Windows you are installing
+        (example: Windows 8 Pro)
+        Note:
+           The product key used in Microsoft-Windows-Setup\UserData\ProductKey\Key 
+           can be used many times in different installations and is not used to activate Windows. 
+           It is only used to choose which edition of Windows to install. 
+           
+           The individual product key is either specified by the user, or by setting 
+           Microsoft-Windows-Shell-Setup\ProductKey.
+     * Set the default language to your own:
+       Replace "en-US" with your language code in Microsoft-Windows-International-Core-WinPE\SetupUILanguage. 
+       For a list of languages, see http://go.microsoft.com/fwlink/?LinkId=206620.
+     * OEMs: Replace OEMInformation with your support information
+
+     To use this file: 
+        Save this file on the root of a USB flash drive with the filename: Autounattend.xml
+        Put the Windows DVD and the USB key into a new x64-BIOS PC.
+-->
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <OEMInformation>
+                <Manufacturer>Cefim</Manufacturer>
+                <SupportHours>9:00 à 18:00</SupportHours>
+                <SupportPhone>02.47.40.26.80</SupportPhone>
+                <SupportURL>http://glpi.cefim.eu</SupportURL>
+                <HelpCustomized>false</HelpCustomized>
+            </OEMInformation>
+            <AutoLogon>
+                <Password>
+                    <Value>cABhAHMAcwB3AG8AcgBkAFAAYQBzAHMAdwBvAHIAZAA=</Value>
+                    <PlainText>false</PlainText>
+                </Password>
+                <Username>Administrator</Username>
+                <Enabled>true</Enabled>
+                <LogonCount>1</LogonCount>
+            </AutoLogon>
+            <ComputerName>LATXX</ComputerName>
+        </component>
+        <component name="Microsoft-Windows-IE-InternetExplorer" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <StartPages>
+                <StartPage wcm:action="add">
+                    <StartPageUrl>http://www.google.fr</StartPageUrl>
+                    <StartPageKey>http://www.google.fr</StartPageKey>
+                </StartPage>
+            </StartPages>
+            <Home_Page>http://www.google.fr</Home_Page>
+            <IntranetCompatibilityMode>false</IntranetCompatibilityMode>
+        </component>
+    </settings>
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <SetupUILanguage>
+                <UILanguage>fr-FR</UILanguage>
+                <WillShowUI>OnError</WillShowUI>
+            </SetupUILanguage>
+            <InputLocale>fr-FR</InputLocale>
+            <SystemLocale>fr-FR</SystemLocale>
+            <UILanguage>fr-FR</UILanguage>
+            <UserLocale>fr-FR</UserLocale>
+            <UILanguageFallback>fr-FR</UILanguageFallback>
+        </component>
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DiskConfiguration>
+                <Disk wcm:action="add">
+                    <CreatePartitions>
+                        <!-- System partition -->
+                        <CreatePartition wcm:action="add">
+                            <Order>1</Order>
+                            <Size>500</Size>
+                            <Type>Primary</Type>
+                        </CreatePartition>
+                        <!-- Windows partition -->
+                        <CreatePartition wcm:action="add">
+                            <Order>2</Order>
+                            <Extend>false</Extend>
+                            <Type>Primary</Type>
+                            <Size>100000</Size>
+                        </CreatePartition>
+                        <CreatePartition wcm:action="add">
+                            <Order>3</Order>
+                            <Type>Primary</Type>
+                            <Extend>true</Extend>
+                        </CreatePartition>
+                    </CreatePartitions>
+                    <ModifyPartitions>
+                        <ModifyPartition wcm:action="add">
+                            <Order>1</Order>
+                            <PartitionID>1</PartitionID>
+                            <Label>System</Label>
+                            <Format>NTFS</Format>
+                            <Active>true</Active>
+                        </ModifyPartition>
+                        <ModifyPartition wcm:action="add">
+                            <Order>2</Order>
+                            <PartitionID>2</PartitionID>
+                            <Format>NTFS</Format>
+                            <Label>Windows</Label>
+                            <Letter>C</Letter>
+                        </ModifyPartition>
+                        <ModifyPartition wcm:action="add">
+                            <Format>NTFS</Format>
+                            <Label>Data</Label>
+                            <Letter>D</Letter>
+                            <Order>3</Order>
+                            <PartitionID>3</PartitionID>
+                        </ModifyPartition>
+                    </ModifyPartitions>
+                    <DiskID>0</DiskID>
+                    <WillWipeDisk>true</WillWipeDisk>
+                </Disk>
+                <WillShowUI>OnError</WillShowUI>
+            </DiskConfiguration>
+            <ImageInstall>
+                <OSImage>
+                    <InstallTo>
+                        <DiskID>0</DiskID>
+                        <PartitionID>2</PartitionID>
+                    </InstallTo>
+                    <InstallFrom>
+                        <MetaData wcm:action="add">
+                            <Key>/IMAGE/NAME</Key>
+                            <Value>Windows 10 Pro</Value>
+                        </MetaData>
+                    </InstallFrom>
+                </OSImage>
+            </ImageInstall>
+            <UserData>
+                <ProductKey>
+                    <WillShowUI>OnError</WillShowUI>
+                    <Key>W269N-WFGWX-YVC9B-4J6C9-T83GX</Key>
+                </ProductKey>
+                <AcceptEula>true</AcceptEula>
+            </UserData>
+            <EnableFirewall>true</EnableFirewall>
+            <RunSynchronous>
+                <RunSynchronousCommand wcm:action="add">
+                    <Description>Detection usb</Description>
+                    <Order>1</Order>
+                    <Path>cmd /q /c &quot;FOR %i IN (C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\_ISO\E2B\FIRADISK\LOADISONP.CMD cmd /k %i:\_ISO\E2B\FIRADISK\LOADISONP.CMD&quot;</Path>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <OOBE>
+                <ProtectYourPC>1</ProtectYourPC>
+                <HideEULAPage>true</HideEULAPage>
+                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+                <HideLocalAccountScreen>true</HideLocalAccountScreen>
+                <SkipMachineOOBE>true</SkipMachineOOBE>
+                <SkipUserOOBE>true</SkipUserOOBE>
+            </OOBE>
+            <UserAccounts>
+                <AdministratorPassword>
+                    <Value>cABhAHMAcwB3AG8AcgBkAEEAZABtAGkAbgBpAHMAdAByAGEAdABvAHIAUABhAHMAcwB3AG8AcgBkAA==</Value>
+                    <PlainText>false</PlainText>
+                </AdministratorPassword>
+                <LocalAccounts>
+                    <LocalAccount wcm:action="add">
+                        <Password>
+                            <Value>cABhAHMAcwB3AG8AcgBkAFAAYQBzAHMAdwBvAHIAZAA=</Value>
+                            <PlainText>false</PlainText>
+                        </Password>
+                        <DisplayName>Cefim</DisplayName>
+                        <Group>administrators</Group>
+                        <Name>Cefim</Name>
+                    </LocalAccount>
+                </LocalAccounts>
+            </UserAccounts>
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <Description>Enable Administrator account</Description>
+                    <Order>1</Order>
+                    <CommandLine>net user administrator /active:yes</CommandLine>
+                </SynchronousCommand>
+            </FirstLogonCommands>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="wim:d:/isos/fr_windows_10_multiple_editions_version_1703_updated_march_2017_x64_dvd_10204029/sources/install.wim#Windows 10 Pro" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>
