@@ -1,5 +1,5 @@
 # Fichier_reponse basique
-Fichier .xml qui permet d'automatiser une installation de windows 10
+Fichier .xml qui permet d'automatiser une installation de windows 10 (mdp : password pour les comptes)
 - autounattend_cefim : partitions, nom et format partitions, activation administrateur, creation des comptes, ajout infos oem
 - autounattend_cefim_choco : idem + installation gestionnaire de paquet chocolatey
 
