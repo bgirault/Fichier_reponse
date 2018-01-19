@@ -1,3 +1,8 @@
+# Fichier_reponse basique
+Fichier .xml qui permet d'automatiser une installation de windows 10
+- autounattend_cefim : partitions, nom et format partitions, activation administrateur, creation des comptes, ajout infos oem
+- autounattend_cefim_choco : idem + installation gestionnaire de paquet chocolatey
+
 # Fichier_reponse basique WDS
 Fichier .xml qui permet d'initier une installation de Windows via un serveur WDS   
 unnatend_WDS : Les infos de langue et de domaine son zappées au démarrage de l'installation  
